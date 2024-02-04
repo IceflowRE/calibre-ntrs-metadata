@@ -9,6 +9,19 @@ A metadate source plugin for `Calibre <https://calibre-ebook.com/>`__ downloadin
 
 Install it either via ``Preference -> Plugins -> Get new plugins`` or download a zip file from the GitHub Releases and drop it into Calibre.
 
+The following metadata can be downloaded:
+
+- title
+- authors
+- publisher
+- publication date
+- tags
+- comments (abstract)
+- DOI
+- ISBN
+- NTRS ID
+- NASA report number
+
 Web
 ===
 

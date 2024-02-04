@@ -61,9 +61,9 @@ class Ntrs(Source):
                     log.exception(ex)
                     continue
 
-                if meta is not None and (not meta.has_identifier(ident) or meta.get_identifiers()[ident] != identifiers[ident]):
-                    continue
                 if meta is not None:
+                    if not meta.has_identifier(ident) or meta.get_identifiers()[ident] != identifiers[ident]:
+                        continue
                     result_queue.put(meta)
                     return
                 if abort.is_set():
