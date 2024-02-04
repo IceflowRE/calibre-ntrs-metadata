@@ -19,7 +19,7 @@ class Ntrs(Source):
     name = "NASA STI Repository"
     description = "Download metadata from NASA STI Repository."
     author = "Iceflower S"
-    version = (1, 0, 1)
+    version = (1, 0, 2)
     minimum_calibre_version = (7, 4, 0)
 
     capabilities = frozenset(["identify"])
@@ -155,7 +155,7 @@ class Ntrs(Source):
             if "doi" in pub:
                 meta.set_identifier("doi", pub["doi"])
             if "publicationDate" in pub:
-                meta.pubdate = datetime.strptime(pub["publicationDate"][:10], "%Y-%m-%d")
+                meta.pubdate = datetime.fromisoformat(pub["publicationDate"])
             if "publisher" in pub:
                 meta.publisher = pub["publisher"]
         for rep_num in data.get("otherReportNumbers", []):
