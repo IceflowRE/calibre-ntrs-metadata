@@ -19,7 +19,7 @@ class Ntrs(Source):
     name = "NASA STI Repository"
     description = "Download metadata from NASA STI Repository."
     author = "Iceflower S"
-    version = (1, 0, 0)
+    version = (1, 0, 1)
     minimum_calibre_version = (7, 4, 0)
 
     capabilities = frozenset(["identify"])
@@ -45,6 +45,10 @@ class Ntrs(Source):
 
     def identify(self, log: ThreadSafeLog, result_queue: Queue, abort: Event, title: str | None = None, authors: list[str] | None = None,
                  identifiers: dict | None = None, timeout: int = 30) -> None:
+        if authors is None:
+            authors = []
+        if title is None:
+            title = ""
         meta: Metadata | None = None
         if identifiers is not None:
             for ident in [Ntrs.NTRS_ID, Ntrs.NASA_ID, "isbn", "doi"]:
