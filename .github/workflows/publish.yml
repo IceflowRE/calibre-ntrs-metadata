@@ -36,7 +36,7 @@ jobs:
       - name: Release development version
         run: |
           gh release delete latest -y
-          gh release create latest ntrs_metadata.zip -t "Latest NTRS Metadata plugin"
+          gh release create latest ntrs_metadata.zip --prerelease -t "Latest NTRS Metadata plugin"
         env:
           GITHUB_TOKEN: ${{ github.token }}
           NOTES: |
