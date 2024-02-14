@@ -14,15 +14,12 @@ from calibre.utils.logging import ThreadSafeLog
 __license__ = "MIT"
 __copyright__ = "2024, Iceflower - iceflower@gmx.de"
 
-# ToDo:
-# Author(s)           : Hagedorn, N. H. & Prokipius, P. R. -> Vorname, Name
 # Title               : Experimental evaluation of a breadboard heat and product-water removal system for  [...]
 # Author(s)           : Hagedorn, N. H. & Prokipius, P. R.
 # Tags                : Energy Production And Conversion
 # Published           : 1977-05-01T00:00:00+00:00
 # Identifiers         : ntrs:19770017648, nasa:TN-D-8485
 # Comments            : A test program was conducted to evaluate the design of a heat and product-water [...]
-# get NTRS '19770017648'
 
 
 class Ntrs(Source):
