@@ -25,8 +25,13 @@ __copyright__ = "2024, Iceflower - iceflower@gmx.de"
 class Ntrs(Source):
     name = "NASA STI Repository"
     description = "Download metadata from NASA STI Repository."
-    author = "Iceflower S; modified by feuille"
+    author = "Iceflower S"
     version = (1, 0, 3)
+    # History
+    # Version 1.0.3
+    # - Change author from name, givenname (NTRS) to givenname name (Calibre)
+    # - Add series and series index
+    # - A few more debug printing
     minimum_calibre_version = (7, 4, 0)
 
     capabilities = frozenset(["identify"])
@@ -147,7 +152,7 @@ class Ntrs(Source):
         return self._parse_meta_from_dict(json.loads(body), log)
 
     def _parse_meta_from_dict(self, data: dict, log) -> Metadata:
-        log.debug(f"data': '{data}'")
+        # log.debug(f"data': '{data}'")
         # data': '{'_meta': {'score': 65.544174}, 'copyright': {'determinationType': 'GOV_PUBLIC_USE_PERMITTED',
         # 'thirdPartyContentCondition': 'NOT_SET'}, 'subjectCategories': ['Energy Production And Conversion'],
         # 'exportControl': {'isExportControl': 'NO', 'ear': 'NO', 'itar': 'NO'},
