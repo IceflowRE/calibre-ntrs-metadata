@@ -60,7 +60,7 @@ class Ntrs(Source):
                         meta = self._get_meta_from_ntrs_id(identifiers[ident])
                     else:
                         log.debug(f"search with '{ident}': '{identifiers[ident]}'")
-                        meta = self._search(identifiers={ident: identifiers[ident]}, timeout=timeout)
+                        meta = self._search(identifiers={ident: identifiers[ident]}, timeout=timeout, log=log)
                 except Exception as ex:
                     log.exception(ex)
                     continue
@@ -75,7 +75,7 @@ class Ntrs(Source):
 
         try:
             log.debug(f"search with 'title': '{title}', 'authors': '{authors}'")
-            meta = self._search(title=title, authors=authors, timeout=timeout)
+            meta = self._search(title=title, authors=authors, timeout=timeout, log=log)
         except Exception as ex:
             log.exception(ex)
             return
@@ -84,7 +84,7 @@ class Ntrs(Source):
             result_queue.put(meta)
             return
 
-    def _search(self, title: str = "", authors: list[str] = "", identifiers: dict = None, timeout: int = 30, log=None) -> Metadata | None:
+    def _search(self, title: str = "", authors: list[str] = "", identifiers: dict = None, timeout: int = 30, log: ThreadSafeLog = None) -> Metadata | None:
         params: dict = {
             "page": {
                 # limit to one result
@@ -114,6 +114,8 @@ class Ntrs(Source):
             data=json.dumps(params).encode("UTF-8"),
         )
         body: bytes
+        if log is not None:
+            log.debug(f"request: '{request}'")
         with urlopen(request, timeout=timeout) as response:
             body = response.read()
             if response.status != 200:
@@ -123,8 +125,10 @@ class Ntrs(Source):
             return self._parse_meta_from_dict(results[0])
         return None
 
-    def _get_meta_from_ntrs_id(self, ntrs_id: int, timeout: int = 30) -> Metadata | None:
+    def _get_meta_from_ntrs_id(self, ntrs_id: int, timeout: int = 30, log: ThreadSafeLog = None) -> Metadata | None:
         request: Request = Request(f"{Ntrs.API_URL}/citations/{ntrs_id}", method="GET", headers={"Accept": "application/json"})
+        if log is not None:
+            log.debug(f"request: '{request}'")
         body: bytes
         with urlopen(request, timeout=timeout) as response:
             body = response.read()
