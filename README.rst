@@ -22,6 +22,8 @@ The following metadata can be downloaded:
 - NTRS ID
 - NASA report number
 
+Requires Calibre 7.4.0 or higher.
+
 Web
 ===
 
