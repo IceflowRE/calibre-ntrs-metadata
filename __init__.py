@@ -19,18 +19,18 @@ class Ntrs(Source):
     name = "NASA STI Repository"
     description = "Download metadata from NASA STI Repository."
     author = "Iceflower S"
-    version = (1, 0, 2)
+    version = (1, 0, 3)
     minimum_calibre_version = (7, 4, 0)
-
-    capabilities = frozenset(["identify"])
-    touched_fields = frozenset([
-        "title", "authors", "identifier:ntrs", "identifier:nasa", "identifier:doi", "identifier:isbn", "comments", "publisher", "pubdate", "tags"
-    ])
 
     NTRS_ID: str = "ntrs"
     NASA_ID: str = "nasa"
     PUB_URL: str = "https://ntrs.nasa.gov/citations"
     API_URL: str = "https://ntrs.nasa.gov/api"
+
+    capabilities = frozenset(["identify"])
+    touched_fields = frozenset([
+        "title", "authors", "identifier:" + NTRS_ID, "identifier:" + NASA_ID, "identifier:doi", "identifier:isbn", "comments", "publisher", "pubdate", "tags"
+    ])
 
     def get_book_url(self, identifiers: dict) -> Tuple[str, str, str] | None:
         ntrs_id: str | None = identifiers.get(Ntrs.NTRS_ID, None)
