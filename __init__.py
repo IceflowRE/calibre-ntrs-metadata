@@ -17,7 +17,8 @@ __copyright__ = "2024, Iceflower - iceflower@gmx.de"
 
 class Ntrs(Source):
     name = "NASA STI Repository"
-    description = "Download metadata from NASA STI Repository."
+    description = "Download metadata from NASA STI Repository.\n"
+    "Enabling series metadata download might result in inaccurate series names and wrong index numbers."
     author = "Iceflower S"
     version = (1, 0, 3)
     minimum_calibre_version = (7, 4, 0)
@@ -29,8 +30,13 @@ class Ntrs(Source):
 
     capabilities = frozenset(["identify"])
     touched_fields = frozenset([
-        "title", "authors", "identifier:" + NTRS_ID, "identifier:" + NASA_ID, "identifier:doi", "identifier:isbn", "comments", "publisher", "pubdate", "tags"
+        "title", "authors", "identifier:" + NTRS_ID, "identifier:" + NASA_ID, "identifier:doi", "identifier:isbn", "comments", "publisher", "pubdate", "series",
+        "tags"
     ])
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.prefs.defaults['ignore_fields'] = ["series"]
 
     def get_book_url(self, identifiers: dict) -> Tuple[str, str, str] | None:
         ntrs_id: str | None = identifiers.get(Ntrs.NTRS_ID, None)
@@ -162,9 +168,12 @@ class Ntrs(Source):
                 meta.pubdate = datetime.fromisoformat(pub["publicationDate"])
             if "publisher" in pub:
                 meta.publisher = pub["publisher"]
+
         for rep_num in data.get("otherReportNumbers", []):
             if rep_num.startswith("NASA-") or rep_num.startswith("NASA/"):
-                meta.set_identifier(Ntrs.NASA_ID, rep_num[5:])
+                ident: str = rep_num[5:]
+                meta.set_identifier(Ntrs.NASA_ID, ident)
+                if "stiTypeDetails" in data:
+                    meta.series = data["stiTypeDetails"]
                 break
-
         return meta
