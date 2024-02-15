@@ -1,2 +1,0 @@
-calibre-customize -b . 
-pause
