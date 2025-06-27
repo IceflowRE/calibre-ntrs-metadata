@@ -15,6 +15,7 @@ The following metadata can be downloaded:
 - authors
 - publisher
 - publication date
+- series
 - tags
 - comments (abstract)
 - DOI
