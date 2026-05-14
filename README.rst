@@ -5,7 +5,7 @@ NASA STI Repository Metadata Source for Calibre
 
 ----
 
-A metadate source plugin for `Calibre <https://calibre-ebook.com/>`__ downloading metadata from the `NASA STI Repository <https://sti.nasa.gov/>`__.
+A metadata source plugin for `Calibre <https://calibre-ebook.com/>`__ downloading metadata from the `NASA STI Repository <https://sti.nasa.gov/>`__.
 
 Install it either via ``Preference -> Plugins -> Get new plugins`` or download a zip file from the GitHub Releases and drop it into Calibre.
 
